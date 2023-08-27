@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Recommendations</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Anime Recommendations</h1>
+    <form method="post">
+        <label for="user_input">Enter genres (comma-separated):</label>
+        <input type="text" name="user_input" id="user_input" required>
+        <button type="submit">Get Recommendations</button>
+    </form>
+
+    {% if anime_match_all %}
+    <h2>Exact Genre Matches</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Genre</th>
+            <th>Rating</th>
+        </tr>
+        {% for anime in anime_match_all %}
+        <tr>
+            <td>{{ anime.name }}</td>
+            <td>{{ anime.genre }}</td>
+            <td>{{ anime.rating }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    {% if anime_match_one %}
+    <h2>Partial Genre Matches</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Genre</th>
+            <th>Rating</th>
+        </tr>
+        {% for anime in anime_match_one %}
+        <tr>
+            <td>{{ anime.name }}</td>
+            <td>{{ anime.genre }}</td>
+            <td>{{ anime.rating }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>
